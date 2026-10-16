@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalContext";
+import TaskRow from "../TaskRow";
 
 export default function TaskList(){
 
@@ -10,7 +11,23 @@ console.log('Tasks:', tasks);
     return (
         <div>
             <h1>Lista delle Task</h1>
-            <p>Qui verranno mostrati le task...</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Status</th>
+                        <th>Data di Creazione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tasks.map(task => (
+                        <TaskRow key={task.id} task={task}/>
+                    ))}
+                </tbody>
+            </table>
         </div>
     )
 }
+
+
+// 1. Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.

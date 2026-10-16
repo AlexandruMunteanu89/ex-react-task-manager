@@ -142,3 +142,68 @@ nav a.active {
 h1, h2 {
   color: #2c3e50;
 }
+
+/* Titlu */
+h1 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+/* Tabel */
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+thead tr {
+  background-color: #2d7fb1;
+  color: white;
+}
+
+th {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+td.todo {
+  background-color: hsl(6, 78%, 77%);
+}
+
+td.doing {
+  background-color: hsl(50, 90%, 68%);
+}
+
+td.done {
+  background-color: hsl(145, 65%, 70%);
+}
+
+tbody tr:hover {
+  background-color: #f0fdf4;
+}
+tbody tr:hover td.todo,
+tbody tr:hover td.doing,
+tbody tr:hover td.done {
+  background-color: #22c55e !important;
+  color: white;
+}
+
+th {
+  background-color: #2980b9;
+  transition: 0.2s;
+}
+
+th:hover {
+  background-color: #22c55e !important; /* verde */
+  color: white;
+  cursor: pointer;
+}

@@ -28,20 +28,19 @@ function App() {
 export default App
 
 
-// Milestone 2 - Setup Context API e Fetch Iniziale
-// Creare un contesto globale per la gestione dei dati e recuperare la lista dei task dall'API.
+// 📌 Milestone 3 - Lista dei Task (Pagina)
+// Visualizzare l'elenco dei task in una tabella e ottimizzare il rendering con React.memo().
 
 
-// Salvare l'URL dell'API nel file .env del progetto frontend:
-// Creare un file .env nella cartella del progetto frontend e aggiungere lo URL della API raccolto alla Milestone 1.
-// In questo modo, l'URL sarà accessibile in tutto il progetto senza doverlo scrivere manualmente nel codice.
+// Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.
 
-// Creare un Context API (GlobalContext) per gestire lo stato globale dell'applicazione.
+// Strutturare TaskList.jsx come una tabella, con le intestazioni Nome, Stato, Data di Creazione.
 
-// Definire uno useState all'interno del provider, per memorizzare la lista dei task.
+// Creare un componente TaskRow.jsx, che rappresenta una singola riga della tabella e mostra solo le proprietà title, status e createdAt (escludendo description).
 
-// Effettuare una richiesta GET a /tasks al caricamento dell'app, utilizzando useEffect, e salvare i dati nello stato.
+// Applicare uno stile differente alla colonna status, assegnando i seguenti colori di sfondo alle celle in base al valore dello stato:
+// "To do" → rosso
+// "Doing" → giallo
+// "Done" → verde
 
-// Stampare in console i dati ricevuti per verificare il corretto recupero delle informazioni.
-
-// Rendere disponibile il GlobalContext.Provider in App.jsx, avvolgendo l'intera applicazione.
+// Utilizzare React.memo() su TaskRow.jsx per ottimizzare le prestazioni ed evitare render inutili.
