@@ -28,19 +28,14 @@ function App() {
 export default App
 
 
-// 📌 Milestone 3 - Lista dei Task (Pagina)
-// Visualizzare l'elenco dei task in una tabella e ottimizzare il rendering con React.memo().
+// Milestone 4 - Creazione del Custom Hook useTasks() (GET)
+// Creare un custom hook per centralizzare la gestione dei task e semplificare l'accesso ai dati.
 
 
-// Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.
+// Creare un hook useTasks() che recupera i task iniziali con una richiesta GET a /tasks e li memorizza in uno stato locale (useState).
 
-// Strutturare TaskList.jsx come una tabella, con le intestazioni Nome, Stato, Data di Creazione.
+// Definire le funzioni addTask, removeTask, updateTask all'interno di useTasks(), lasciandole vuote per ora.
 
-// Creare un componente TaskRow.jsx, che rappresenta una singola riga della tabella e mostra solo le proprietà title, status e createdAt (escludendo description).
+// Rendere disponibili le funzioni e la lista dei task restituendole come valore dell'hook.
 
-// Applicare uno stile differente alla colonna status, assegnando i seguenti colori di sfondo alle celle in base al valore dello stato:
-// "To do" → rosso
-// "Doing" → giallo
-// "Done" → verde
-
-// Utilizzare React.memo() su TaskRow.jsx per ottimizzare le prestazioni ed evitare render inutili.
+// Integrare useTasks() nel GlobalContext, in modo che tutti i componenti possano accedere ai task e alle funzioni di gestione.
