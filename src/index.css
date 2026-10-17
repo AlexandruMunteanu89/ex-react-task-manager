@@ -269,3 +269,19 @@ form button {
 form button:hover {
   background: #1d4ed8;
 }
+
+/* Il buttone Elimina Task*/
+.btn-elimina {
+  background-color: #14b8a6;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-elimina:hover {
+  background-color: #0d9488;
+}

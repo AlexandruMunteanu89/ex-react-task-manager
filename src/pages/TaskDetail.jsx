@@ -1,0 +1,39 @@
+import { useParams } from "react-router-dom"
+import { useContext } from "react"
+import { GlobalContext } from "../context/GlobalContext"
+
+export default function TaskDetail(){
+    const { id } = useParams();
+    const { tasks } = useContext(GlobalContext);
+
+    const task = tasks.find(t => t.id === parseInt(id));
+
+    if(!task){
+        return (
+            <h2>Task non trovata</h2>
+        )
+    }
+
+    const handleDelete = () => {
+        console.log("Elimino Task:, task.id");
+        
+    }
+
+    return(
+        <div>
+            <h1>Dettaglio Task</h1>
+            <p><strong>Name:</strong> {task.title}</p>
+            <p><strong>Descrizione:</strong> {task.description}</p>
+            <p><strong>Stato:</strong> {task.status}</p>
+            <p><strong>Data di Creazione:</strong> {new Date(task.createdAt).toLocaleDateString()}</p>
+            <button className="btn-elimina" onClick={handleDelete}>Elimina Task</button>
+        </div>
+    )
+}
+
+// Creare TaskDetail.jsx per mostrare:
+// Nome (title)
+// Descrizione (description)
+// Stato (status)
+// Data di creazione (createdAt)
+// Un bottone "Elimina Task", che per ora stampa solo "Elimino task" in console.
