@@ -17,7 +17,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<TaskList/>}/>
-          <Route path="/add" element={<AddTask/>}/>
+          <Route path="/addtask" element={<AddTask/>}/>
         </Routes>
 
       </BrowserRouter>
@@ -28,14 +28,23 @@ function App() {
 export default App
 
 
-// Milestone 4 - Creazione del Custom Hook useTasks() (GET)
-// Creare un custom hook per centralizzare la gestione dei task e semplificare l'accesso ai dati.
+// 📌 Milestone 5 - Creazione del Form per Aggiungere un Task
+// Creare un form per aggiungere un task, senza ancora inviare i dati all'API.
 
 
-// Creare un hook useTasks() che recupera i task iniziali con una richiesta GET a /tasks e li memorizza in uno stato locale (useState).
+// Aggiornare la pagina AddTask.jsx per contenere un form con i seguenti campi:
 
-// Definire le funzioni addTask, removeTask, updateTask all'interno di useTasks(), lasciandole vuote per ora.
+// Nome del task (title) → Input controllato (useState).
+// Descrizione (description) → Textarea non controllata (useRef).
+// Stato (status) → Select non controllata (useRef), con opzioni "To do", "Doing", "Done", e valore predefinito "To do".
 
-// Rendere disponibili le funzioni e la lista dei task restituendole come valore dell'hook.
+// Validare il campo Nome (title):
 
-// Integrare useTasks() nel GlobalContext, in modo che tutti i componenti possano accedere ai task e alle funzioni di gestione.
+// Il campo non può essere vuoto.
+// Non può contenere simboli speciali.
+// Se il valore è errato, mostrare un messaggio di errore.
+// Utilizzare una costante con i caratteri vietati:
+// const symbols = "!@#$%^&*()-_=+[]{}|;:'\\",.<>?/`~";
+// Gestione del Submit del Form:
+
+// Al click del bottone "Aggiungi Task", il form deve SOLO stampare in console l’oggetto task con i valori inseriti (NON deve ancora essere inviata la richiesta all’API).
