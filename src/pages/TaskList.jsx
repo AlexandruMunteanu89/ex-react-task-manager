@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalContext";
-import TaskRow from "../TaskRow";
+import TaskRow from "../components/TaskRow.jsx";
 
 export default function TaskList(){
 
