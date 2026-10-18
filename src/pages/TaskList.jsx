@@ -30,4 +30,3 @@ console.log('Tasks:', tasks);
 }
 
 
-// 1. Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.
