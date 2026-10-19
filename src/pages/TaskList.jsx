@@ -1,11 +1,27 @@
-import { useContext, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import TaskRow from "../components/TaskRow.jsx";
+
+//Funzione di debounce generica
+function debounce(callback, delay){
+    let timer;
+    return (value) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            callback(value)
+        }, delay)
+    }
+}
 
 export default function TaskList(){
 
 const {tasks} = useContext(GlobalContext);
 console.log('Tasks:', tasks);
+
+const [searchQuery, setSearchQuery] = useState("");
+const debouncedSetSearchQuery = useCallback(
+    debounce(setSearchQuery, 500)
+, []);
 
 const [sortBy, setSortBy] = useState('createdAt');
 const [sortOrder, setSortOrder] = useState(1);
@@ -21,10 +37,12 @@ const handleSort = (field) => {
     }
 }
 
-const sortedTask = useMemo(() => {
-    return [...tasks].sort((a, b) => {
+const filteredAtSortedTasks = useMemo(() => {
+    return [...tasks]
+    .filter(t => t.title.toLowerCase().includes(searchQuery))
+    .sort((a, b) => {
         let comparison;
-
+        
         if(sortBy === 'title'){
             comparison = a.title.localeCompare(b.title)
         }else if(sortBy === 'status'){
@@ -39,11 +57,17 @@ const sortedTask = useMemo(() => {
         }
         return comparison * sortOrder;
     });
-},[tasks, sortBy, sortOrder]);
+},[tasks, sortBy, sortOrder, searchQuery]);
 
     return (
         <div>
             <h1>Lista delle Task</h1>
+            {/* Input di ricerca */}
+            <input 
+                type="text" 
+                placeholder='Cerca una task...'
+                onChange={e => debouncedSetSearchQuery(e.target.value)}
+            />
             <table>
                 <thead>
                     <tr>
@@ -59,7 +83,7 @@ const sortedTask = useMemo(() => {
                     </tr>
                 </thead>
                 <tbody>
-                    {sortedTask.map(task => (
+                    {filteredAtSortedTasks.map(task => (
                         <TaskRow key={task.id} task={task}/>
                     ))}
                 </tbody>
@@ -68,17 +92,16 @@ const sortedTask = useMemo(() => {
     )
 }
 
-// Aggiungere due state in TaskList.jsx:
-// sortBy: rappresenta il criterio di ordinamento (title, status, createdAt).
-// sortOrder: rappresenta la direzione (1 per crescente, -1 per decrescente).
-// Il default di sortBy è createdAt, il default di sortOrder, è 1.
+// Creare un input di ricerca controllato
+// Aggiungere un input di ricerca controllato in TaskList.jsx sopra la tabella, in modo che l’utente possa digitare per cercare un task.
+// Creare uno stato searchQuery (useState) per memorizzare il valore dell'input.
 
-// Modificare la tabella per rendere cliccabili le intestazioni (th), in modo che al click:
-// Se la colonna è già selezionata (sortBy uguale alla colonna cliccata), invertire sortOrder.
-// Se la colonna è diversa, impostare sortBy sulla nuova colonna e sortOrder su 1.
+// Modificare l'useMemo() per filtrare e ordinare i task
+// Applicare il filtraggio basato su searchQuery.
+// La ricerca deve essere case insensitive.
+// Ordinare i risultati in base ai criteri esistenti (es. nome, stato, data di creazione).
 
-// Implementare la logica di ordinamento con useMemo(), in modo che l’array ordinato venga ricalcolato solo quando cambiano tasks, sortBy o sortOrder:
-// Ordinamento per title → alfabetico (localeCompare).
-// Ordinamento per status → ordine predefinito: "To do" < "Doing" < "Done".
-// Ordinamento per createdAt → confrontando il valore numerico della data (.getTime()).
-// Applicare sortOrder per definire se l’ordine è crescente o decrescente.
+// Aggiungere il debounce per migliorare le prestazioni
+// Creare una funzione debounce con setTimeout() per ritardare l’aggiornamento di searchQuery.
+
+// Usare useCallback() per memorizzare la funzione di debounce e prevenire inutili ricalcoli.

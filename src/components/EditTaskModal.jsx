@@ -1,21 +1,21 @@
 import { useState, useRef } from "react";
 import Modal from "./Modal";
+import { Form } from "react-router-dom";
 
-
-export default function EditTaskModal({ show, onClose, task, onSave}){
+export default function EditTaskModal({ show, onClose, task, onSave }){
     const [editedTask, setEditedTask] = useState(task);
     const editFormRef = useRef();
 
     const changeEditedTask = (key, event) => {
-        setEditedTask(prev => ({...prev, [key]: event.target.value}));
-    }
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        onSave(editedTask);
+        setEditedTask(prev => ({...prev, [key]: event.target.value}))
     }
 
     const { title, description, status } = editedTask;
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        onSave(editedTask);
+    }
 
     return (
         <Modal
@@ -24,29 +24,27 @@ export default function EditTaskModal({ show, onClose, task, onSave}){
                 <form ref={editFormRef} onSubmit={handleSubmit}>
                     <label>
                         Nome Task:
-                        <input  
+                        <input
                             type='text'
                             value={title}
-                            onChange={e => changeEditedTask('title', e)}
+                            onChange={event => changeEditedTask('title', event)}
                         />
                     </label>
                     <label>
                         Descrizione:
                         <textarea
-                        value={description}
-                        onChange={e => changeEditedTask('description', e)}
+                            value={description}
+                            onChange={event => changeEditedTask('description', event)}
                         />
                     </label>
                     <label>
                         Stato:
                         <select
                             value={status}
-                            onChange={e => changeEditedTask('status, e')}
-                            >
-                                {["To do", "Doing", "Done"].map((value, index) => (
-                                    <option key={index} value={value}>{value}</option>
-                                ))}
-                            </select>
+                            onChange={event => changeEditedTask('status', event)}
+                        >
+                                {["To do", "Doing", "Done"].map((value, index) => (<option key={index} value={value}>{value}</option>))}
+                        </select>
                     </label>
                 </form>
             }
@@ -56,6 +54,7 @@ export default function EditTaskModal({ show, onClose, task, onSave}){
             onConfirm={() => editFormRef.current.requestSubmit()}
         />
     )
+
 }
 
 
