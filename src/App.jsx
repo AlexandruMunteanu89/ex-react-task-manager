@@ -30,7 +30,4 @@ function App() {
 export default App
 
 
-// Milestone 9 - Componente Modal e Conferma Eliminazione Task
-// Creare un componente Modal riutilizzabile e utilizzarlo per confermare l’eliminazione di un task.
-
 

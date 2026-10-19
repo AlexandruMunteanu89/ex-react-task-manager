@@ -2,15 +2,17 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
 import { GlobalContext } from "../context/GlobalContext"
 import Modal from "../components/Modal";
+import EditTaskModal from "../components/EditTaskModal";
 
 export default function TaskDetail(){
     const { id } = useParams();
     const navigate = useNavigate();
-    const { tasks, removeTask } = useContext(GlobalContext);
+    const { tasks, removeTask, updateTask } = useContext(GlobalContext);
 
     const task = tasks.find(t => t.id === parseInt(id));
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
 
     if(!task){
         return (
@@ -27,8 +29,17 @@ export default function TaskDetail(){
             console.error(error);
             alert(error.message);
             
+        }  
+    }
+
+    const handleUpdate = async updatedTask => {
+        try{
+            await updateTask(updatedTask);
+            setShowEditModal(false);
+        }catch(error){
+            console.error(error);
+            alert(error.message);
         }
-        
     }
 
     return(
@@ -39,6 +50,7 @@ export default function TaskDetail(){
             <p><strong>Stato:</strong> {task.status}</p>
             <p><strong>Data di Creazione:</strong> {new Date(task.createdAt).toLocaleDateString()}</p>
             <button className="btn-elimina" onClick={() => setShowDeleteModal(true)}>Elimina Task</button>
+            <button className="btn-elimina" onClick={() => setShowEditModal(true)}>Modifica Task</button>
         
         {/* Modale di conferma eliminazione */}
         <Modal
@@ -49,10 +61,15 @@ export default function TaskDetail(){
                 onConfirm={handleDelete}
                 confirmText="Elimina"
             />
+
+            {/* Modale di modifica task */}
+            <EditTaskModal
+                task={task}
+                show={showEditModal}
+                onClose={() => setShowEditModal(false)}
+                onSave={handleUpdate}
+            />
         </div>
     );
 }
 
-// Integrare il componente Modal in TaskDetail.jsx per confermare l'eliminazione:
-// Quando l’utente clicca su "Elimina Task", deve aprirsi la modale di conferma.
-// Se l’utente conferma, vengono eseguite le stesse operazioni della Milestone 8
